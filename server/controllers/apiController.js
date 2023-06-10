@@ -13,6 +13,12 @@ const apiController = {};
 //
 const key = process.env.GOOGLE_API_KEY;
 
+// https://maps.googleapis.com/maps/api/place/nearbysearch/json
+//   ?keyword=cruise
+//   &location=-33.8670522 %2C 151.1957362
+//   &radius=1500
+//   &type=restaurant
+//   &key=YOUR_API_KEY
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -20,36 +26,30 @@ const key = process.env.GOOGLE_API_KEY;
 apiController.getLocationResults = async (req, res, next) => {
   try {
     // make sure key exists
-    if (key === undefined) {return next({log: "API key is undefined"})}
+    if (key === undefined) return next({log: "API key is undefined"});
 
-    const { query } = req.body;
-    const location = res.locals.addressLocation
-    // const response = await fetch(
-    //   `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${query}&key=${key}`
-    // );
-    
-    // location must be converted to lat long
-    // const response = await client.placesNearby({ params: { keyword: query, radius: 2, location: location, key: key}});
-    console.log('location =', location)
-    const response = await client.PlacesNearby({ params: { keyword: query, location: location, key: key}});
-    console.log('data recieved: ', response)
-    next()
+    // get response data
+    const { query, location } = req.body;
+    const input = query + location
+    const response = await fetch(
+      `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${input}&key=${key}`
+    );
+
+    // format response
     const data = await response.json();
-    
     const results = data.results;
-
     const arrayOfPlaces = [];
     results.forEach((el) => {
       arrayOfPlaces.push({name: el.name, address: el.formatted_address, distance: undefined});
     });
     
-     // includes a lat and lng property --- {coordinates: [lat, lng]} pls
      
+    // add data to locals
     res.locals.rawData = arrayOfPlaces;
     return next();
-    
+
   } catch (err) {
-    // console.log(err);
+    console.log(err.message);
     return next({ log: `error in getLocationResults middleware. Error: ${err}` });
   }
 };

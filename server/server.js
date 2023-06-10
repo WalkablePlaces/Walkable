@@ -21,6 +21,34 @@ app.get('/', (req, res) => {
   res.json({hello: 'goodbye'});
 })
 
+app.get('/nearby', async (req, res) => {
+  try {
+    const location = '40.782864,-73.965355'
+    const keyword = 'pizza'
+    const radius = 500;
+    const type = 'restaurant';
+
+    const response = await fetch(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=40.782864,-73.965355&radius=${radius}
+    &type=${type}
+    &keyword=${keyword}
+    &key=AIzaSyD5sO1jAaATVRppccsvhUIyEc-wpgFQzLI`);
+
+    // ok, so this is weird, depending on what I use template literals for, search results very, this works though
+    // so i will look at it more later
+
+    // glad its working that is stange though
+    // i will save then push this version then
+    const data = await response.json();
+    console.log(data.results);
+    res.send(data.results);
+   
+    
+  } catch (err) {
+    console.log(err.message);
+  }
+});
+
+
 
 app.get('/testDistance', async (req, res) => {
   try {
@@ -35,8 +63,9 @@ app.get('/testDistance', async (req, res) => {
         key: key,
       }
     });
-
-    console.log(response.data.routes[0].legs[0]);
+    const distance = response.data.routes[0].legs[0].distance.text;
+    const walkTime = response.data.routes[0].legs[0].duration.text;
+    console.log(response.data.routes[0].legs[0].distance);
   }
   catch(e) {
     console.log(e);

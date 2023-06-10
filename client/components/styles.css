@@ -1,0 +1,24 @@
+.App {
+    background-color: black;
+}
+
+h1 {
+    color: red;
+}
+
+.landingPageContainer {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.addressInputContainer {
+    display:flex;
+    flex-direction:row;
+    margin: 1em;
+}
+
+.addressLabel {
+    padding-right: .5rem;
+}

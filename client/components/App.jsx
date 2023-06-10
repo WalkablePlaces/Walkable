@@ -1,7 +1,14 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import LandingPage from './LandingPage'
+import ResultsPage from './ResultsPage'
+import './styles.css'
 
 export default function App() {
+const [searchStatus, setSearchStatus] = useState('');
+  
   return (
-    <div>App</div>
+    <div>
+    {searchStatus === '' ? <LandingPage searchStatus={searchStatus} setSearchStatus={setSearchStatus} /> : <ResultsPage />}
+    </div>
   )
 }

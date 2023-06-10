@@ -5,10 +5,11 @@ import './styles.css'
 
 export default function App() {
 const [addressInput, setAddressInput] = useState(undefined);
-  
-  return (
+const [keywordChoice, setKeywordChoice] = useState('') 
+
+return (
     <div>
-    {addressInput === undefined ? <LandingPage addressInput={addressInput} setAddressInput={setAddressInput} /> : <ResultsPage addressInput={addressInput} setAddressInput={setAddressInput} />}
+    {addressInput === undefined ? <LandingPage keywordChoice={keywordChoice} setKeywordChoice={setKeywordChoice} addressInput={addressInput} setAddressInput={setAddressInput} /> : <ResultsPage addressInput={addressInput} setAddressInput={setAddressInput} />}
     </div>
   )
 }

@@ -3,7 +3,7 @@
 const googleMaps = require('@googlemaps/google-maps-services-js');
 const { Client } = require('@googlemaps/google-maps-services-js');
 const client = new Client({});
-
+const fetch = require('node-fetch')
 const apiController = {};
 // API's
 
@@ -31,6 +31,7 @@ apiController.getLocationResults = async (req, res, next) => {
     // get response data
     const { query, location } = req.body;
     const input = query + location
+
     const response = await fetch(
       `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${input}&key=${key}`
     );

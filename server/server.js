@@ -4,12 +4,8 @@ const path = require('path');
 const express = require('express');
 const app = express();
 const PORT = 3000;
+const cors = require('cors');
 const bodyParser = require('body-parser');
-
-
-const googleMaps = require('@googlemaps/google-maps-services-js');
-const { Client } = require('@googlemaps/google-maps-services-js');
-const client = new Client({});
 
 const apiController = require('./controllers/apiController');
 
@@ -78,8 +74,8 @@ app.get('/test', apiController.addressToLocation, (req, res) => {
     res.sendStatus(200);
 });
 
-
 app.post('/getLocationResults', apiController.addressToLocation, apiController.getLocationResults, (req, res) => {
+    res.status(200).send({places: res.locals.rawData});
     res.json({places: res.locals.rawData});
    })
 

@@ -1,13 +1,41 @@
 import React from 'react'
-import MainContainer from './MainContainer.jsx'
+import { useState, useEffect } from 'react';
+import ResultsContainer from './ResultsContainer.jsx';
 
-export default function ResultsPage() {
+export default function ResultsPage({addressInput, setAddressinput, keywordChoice}) {
 
+  const [resultList, setResultList] = useState([]);
+
+  useEffect(() => {
+    async function getResults(){
+    try {
+      const response = await fetch('/getLocationResults', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({query: addressInput, keywordChoice: keywordChoice}),
+      })
+      const data = await response.json() 
+      // console.log('line 20', data)
+      setResultList(data.places);      
+    }
+    catch (err){
+      (console.log(err))
+    }
+  }
+  getResults()
+  },[addressInput])
+  
   
   return (
-    <div>
+    <div className='resultsPage'>
     <h1>Results within walking distance</h1>
-    <MainContainer />
+    <h2>Results</h2>
+    <div className='resultsContainer'>
+    <ResultsContainer resultList={resultList}/>
+    </div>
     </div>
   )
 }

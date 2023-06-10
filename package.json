@@ -6,7 +6,7 @@
     "@googlemaps/google-maps-services-js": "^3.3.31",
     "axios": "^1.4.0",
     "file-saver": "^2.0.5",
-    "node-fetch": "^3.3.1",
+    "node-fetch": "^2.6.11",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-loading-skeleton": "^3.3.1",
@@ -38,8 +38,8 @@
     "webpack-dev-server": "^4.15.0",
     "webpack-hot-middleware": "^2.25.3"
   },
-  "name": "aesthetic-generator",
-  "description": "A open-source web-app that will generate custom wallpaper/profile-pictures, based on the input of the user.",
+  "name": "walkable",
+  "description": "A web app designed to provide restaurants and activites in a walkable distance from the users location.",
   "version": "1.0.0",
   "main": "webpack.config.js",
   "scripts": {

@@ -1,9 +1,10 @@
-.App {
-    background-color: black;
+
+html {
+    background-color: rgb(91, 77, 113);
 }
 
 h1 {
-    color: red;
+    color: rgb(255, 255, 255);
 }
 
 .landingPageContainer {
@@ -11,6 +12,7 @@ h1 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-top: 10em;
 }
 
 .addressInputContainer {
@@ -21,4 +23,11 @@ h1 {
 
 .addressLabel {
     padding-right: .5rem;
+}
+
+.resultsPageContainer {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }

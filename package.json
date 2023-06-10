@@ -37,8 +37,8 @@
     "webpack-dev-server": "^4.15.0",
     "webpack-hot-middleware": "^2.25.3"
   },
-  "name": "aesthetic-generator",
-  "description": "A open-source web-app that will generate custom wallpaper/profile-pictures, based on the input of the user.",
+  "name": "walkable",
+  "description": "A web app designed to provide restaurants and activites in a walkable distance from the users location.",
   "version": "1.0.0",
   "main": "webpack.config.js",
   "scripts": {

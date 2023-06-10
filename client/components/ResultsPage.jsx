@@ -8,7 +8,7 @@ export default function ResultsPage({addressInput, setAddressinput}) {
     headers: {
       'Content-Type': 'application/json',
     },
-    body: {location: addressInput},
+    body: {query: addressInput},
   })
   .then(data => data.json())
   .then(data => {

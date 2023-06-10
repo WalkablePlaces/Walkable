@@ -4,10 +4,11 @@ const path = require('path');
 const express = require('express');
 const app = express();
 const PORT = 3000;
+const cors = require('cors');
 const bodyParser = require('body-parser');
-
 const apiController = require('./controllers/apiController');
 
+app.use(cors());
 app.use(bodyParser.json())
 
 
@@ -17,7 +18,7 @@ app.get('/test', apiController.addressToLocation, (req, res) => {
 
 
 app.post('/getLocationResults', apiController.getLocationResults, (req, res) => {
-    res.json({places: res.locals.rawData});
+    res.status(200).send({places: res.locals.rawData});
    })
 
 

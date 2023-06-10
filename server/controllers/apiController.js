@@ -3,7 +3,7 @@
 const googleMaps = require('@googlemaps/google-maps-services-js');
 const { Client } = require('@googlemaps/google-maps-services-js');
 const client = new Client({});
-
+const fetch = require('node-fetch')
 const apiController = {};
 // API's
 
@@ -16,7 +16,7 @@ const key = process.env.GOOGLE_API_KEY;
 apiController.getLocationResults = async (req, res, next) => {
   try {
     const { query } = req.body;
-    console.log(req.body)
+    console.log('line 21', req.body)
     console.log(query)
     const response = await fetch(
       `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${query}&key=${key}`
@@ -31,7 +31,7 @@ apiController.getLocationResults = async (req, res, next) => {
     res.locals.rawData = arrayOfPlaces;
     return next();
   } catch (err) {
-    console.log(err);
+    console.log(err.message);
     return next({ log: `error in getLocationResults middleware. Error: ${err}` });
   }
 };

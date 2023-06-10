@@ -1,9 +1,10 @@
-.App {
-    background-color: black;
+
+html {
+    background-color: rgb(91, 77, 113);
 }
 
 h1 {
-    color: red;
+    color: rgb(255, 255, 255);
 }
 
 .landingPageContainer {
@@ -11,6 +12,7 @@ h1 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-top: 10em;
 }
 
 .addressInputContainer {
@@ -21,4 +23,36 @@ h1 {
 
 .addressLabel {
     padding-right: .5rem;
+}
+
+.resultsPage {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    border: solid 1px black;
+}
+.resultsContainer {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 7px;
+    border: solid 1px rgb(45, 165, 81);
+    background-color: beige;
+    margin: 2em;
+}
+
+.result {
+    margin: 0.5em;
+    display:flex;
+    flex-direction: column;
+    align-items: space-between;
+    background-color: aliceblue;
+    border:solid 0.5px pink;
+}
+
+.keywordInput {
+    margin-left: .5rem;
+    border-radius: 4px;
 }

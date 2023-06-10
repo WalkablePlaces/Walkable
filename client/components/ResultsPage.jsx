@@ -1,26 +1,41 @@
 import React from 'react'
-import MainContainer from './MainContainer.jsx'
+import { useState, useEffect } from 'react';
+import ResultsContainer from './ResultsContainer.jsx';
 
 export default function ResultsPage({addressInput, setAddressinput}) {
-  let resultsList;
-  fetch('/getLocationResults', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: {query: addressInput},
-  })
-  .then(data => data.json())
-  .then(data => {
-    console.log(data);
-    resultsList = data;
-  })
-  .catch(err => console.log(err))
+
+  const [resultList, setResultList] = useState([]);
+
+  useEffect(() => {
+    async function getResults(){
+    try {
+      const response = await fetch('/getLocationResults', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({query: addressInput}),
+      })
+      const data = await response.json() 
+      // console.log('line 20', data)
+      setResultList(data.places);      
+    }
+    catch (err){
+      (console.log(err))
+    }
+  }
+  getResults()
+  },[addressInput])
+  
   
   return (
-    <div className='resultsPageContainer'>
+    <div className='resultsPage'>
     <h1>Results within walking distance</h1>
-    <MainContainer resultsList={resultsList}/>
+    <h2>Results</h2>
+    <div className='resultsContainer'>
+    <ResultsContainer resultList={resultList}/>
+    </div>
     </div>
   )
 }

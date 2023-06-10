@@ -11,6 +11,11 @@ const apiController = require('./controllers/apiController');
 app.use(bodyParser.json())
 
 
+app.get('/test', apiController.addressToLocation, (req, res) => {
+    res.sendStatus(200);
+});
+
+
 app.post('/getLocationResults', apiController.getLocationResults, (req, res) => {
     res.json({places: res.locals.rawData});
    })

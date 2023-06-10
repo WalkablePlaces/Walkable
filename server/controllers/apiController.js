@@ -15,8 +15,6 @@ const key = process.env.GOOGLE_API_KEY;
 
 apiController.getLocationResults = async (req, res, next) => {
   try {
-    
-    
     const { query } = req.body;
     console.log(req.body)
     console.log(query)
@@ -43,25 +41,6 @@ apiController.compareDistances = (req, res, next) => {
   // add a distance to res.locals
 };
 
-// apiController.getCurrentLocation = async (req, res, next) => {
-//     try {
-//   const response = await fetch(`https://maps.googleapis.com/maps/api/distancematrix/json
-//   ?destinations=New%20York%20City%2C%20NY
-//   &origins=Washington%2C%20DC%7CBoston
-//   &units=imperial
-//   &key=${key}`)
-//   ;
-//   // const data = await response.json();
-//   console.log(response)
-  
-//   res.locals.currentLocation = response;
-//   next();
-//     }
-//     catch (e) {
-//         console.log(e);
-//     };
-// };
-
 
 apiController.getCurrentLocation = async (req, res, next) => {
     try {
@@ -69,13 +48,34 @@ apiController.getCurrentLocation = async (req, res, next) => {
             params: {
                 key: key,
             }
-  
         });
-
-        console.log(response);
+        // @ts-ignore
+        const {lat, lng} =  response.data.location; // pulls lat and lng of current location;
+        next();
     }
     catch (e) {
         console.log(e);
+        next(e);
+    };
+};
+
+
+apiController.addressToLocation = async (req, res, next) => {
+    try {
+        const response = await client.geocode({
+            params: {
+                address: '136 Via Murcia, 92672',
+                key: key,
+            }
+        })
+        const { lat, lng } = response.data.results[0].geometry.location;
+        console.log(lat, lng);
+        next();
+    }
+
+    catch (e) {
+        console.log(e);
+        next(e);
     };
 };
 

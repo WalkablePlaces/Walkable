@@ -6,17 +6,51 @@ const app = express();
 const PORT = 3000;
 const bodyParser = require('body-parser');
 
+
+const googleMaps = require('@googlemaps/google-maps-services-js');
+const { Client } = require('@googlemaps/google-maps-services-js');
+const client = new Client({});
+
 const apiController = require('./controllers/apiController');
 
 app.use(bodyParser.json())
 
+const key = process.env.GOOGLE_API_KEY;
+
+app.get('/', (req, res) => {
+  res.json({hello: 'goodbye'});
+})
+
+
+app.get('/testDistance', async (req, res) => {
+  try {
+    const origin1 = '40.758896,-73.985130';
+    const destination1 = '40.782864,-73.965355';
+
+   const response = await client.directions ({
+      params: {
+        origin: origin1,
+        destination: destination1,
+        mode: 'walking',
+        key: key,
+      }
+    });
+
+    console.log(response.data.routes[0].legs[0]);
+  }
+  catch(e) {
+    console.log(e);
+  }
+
+});
+ 
 
 app.get('/test', apiController.addressToLocation, (req, res) => {
     res.sendStatus(200);
 });
 
 
-app.post('/getLocationResults', apiController.getLocationResults, (req, res) => {
+app.post('/getLocationResults', apiController.addressToLocation, apiController.getLocationResults, (req, res) => {
     res.json({places: res.locals.rawData});
    })
 

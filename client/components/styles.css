@@ -19,7 +19,6 @@ h1 {
     display:flex;
     flex-direction:row;
     margin: 1em;
-    border: solid 1px rgb(217, 105, 105);
 }
 
 .addressLabel {
@@ -51,4 +50,9 @@ h1 {
     align-items: space-between;
     background-color: aliceblue;
     border:solid 0.5px pink;
+}
+
+.keywordInput {
+    margin-left: .5rem;
+    border-radius: 4px;
 }

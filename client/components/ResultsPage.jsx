@@ -2,7 +2,7 @@ import React from 'react'
 import { useState, useEffect } from 'react';
 import ResultsContainer from './ResultsContainer.jsx';
 
-export default function ResultsPage({addressInput, setAddressinput}) {
+export default function ResultsPage({addressInput, setAddressinput, keywordChoice}) {
 
   const [resultList, setResultList] = useState([]);
 
@@ -15,7 +15,7 @@ export default function ResultsPage({addressInput, setAddressinput}) {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({query: addressInput}),
+        body: JSON.stringify({query: addressInput, keywordChoice: keywordChoice}),
       })
       const data = await response.json() 
       // console.log('line 20', data)

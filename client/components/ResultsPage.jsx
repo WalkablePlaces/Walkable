@@ -1,13 +1,26 @@
 import React from 'react'
 import MainContainer from './MainContainer.jsx'
 
-export default function ResultsPage() {
-
+export default function ResultsPage({addressInput, setAddressinput}) {
+  let resultsList;
+  fetch('/getLocationResults', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: {location: addressInput},
+  })
+  .then(data => data.json())
+  .then(data => {
+    console.log(data);
+    resultsList = data;
+  })
+  .catch(err => console.log(err))
   
   return (
-    <div>
+    <div className='resultsPageContainer'>
     <h1>Results within walking distance</h1>
-    <MainContainer />
+    <MainContainer resultsList={resultsList}/>
     </div>
   )
 }

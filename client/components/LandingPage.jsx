@@ -1,11 +1,13 @@
 import React from 'react'
 
-export default function LandingPage({searchStatus, setSearchStatus}) {
-        function buttonClick(input){
+export default function LandingPage({addressInput, setAddressInput}) {
+        function buttonClick(){
+          const input = document.getElementById('address').value;
             if(input !== ''){
-                setSearchStatus('true')
-                console.log(searchStatus)
+                setAddressInput(input)
+                console.log(input)
             }
+          
         }
   
   return (
@@ -13,7 +15,7 @@ export default function LandingPage({searchStatus, setSearchStatus}) {
         <h1>Where are you?</h1>
         <div className='addressInputContainer'>
         <label className='addressLabel'>Address: </label>
-        <input className='addressInput'></input>
+        <input className='addressInput' id='address'></input>
         </div>
         <button className="submitLocation" onClick={buttonClick}>Submit Location</button>
     </div>

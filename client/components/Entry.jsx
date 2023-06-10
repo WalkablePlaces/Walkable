@@ -1,13 +1,13 @@
 import React from 'react'
 
-export default function Entry() {
+export default function Entry({name, address, distance}) {
 
   
   return (
     <div>
-    Name:
-    Distance:
-    Address:
+    {name}
+    {address}
+    {distance}
     </div>
   )
 }

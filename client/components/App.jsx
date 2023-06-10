@@ -4,11 +4,11 @@ import ResultsPage from './ResultsPage'
 import './styles.css'
 
 export default function App() {
-const [searchStatus, setSearchStatus] = useState('');
+const [addressInput, setAddressInput] = useState(undefined);
   
   return (
     <div>
-    {searchStatus === '' ? <LandingPage searchStatus={searchStatus} setSearchStatus={setSearchStatus} /> : <ResultsPage />}
+    {addressInput === undefined ? <LandingPage addressInput={addressInput} setAddressInput={setAddressInput} /> : <ResultsPage addressInput={addressInput} setAddressInput={setAddressInput} />}
     </div>
   )
 }

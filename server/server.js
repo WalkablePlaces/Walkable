@@ -4,23 +4,25 @@ const path = require('path');
 const express = require('express');
 const app = express();
 const PORT = 3000;
+const bodyParser = require('body-parser');
 
 const apiController = require('./controllers/apiController');
 
+app.use(bodyParser.json())
 
 
-// app.get('/test', (req, res) => {
-//     res.sendStatus(200);
-// });
-
-
-
-
-
-app.get('/', apiController.getLocationResults, (req, res) => {
-        console.log(res.locals.rawData);
-    res.json({places: res.locals.rawData})
+app.post('/getLocationResults', apiController.getLocationResults, (req, res) => {
+    res.json({places: res.locals.rawData});
    })
+
+
+   // get current location **testing**
+   app.get('/location', apiController.getCurrentLocation, (req, res) => {
+      res.json(res.locals.currentLocation);
+    });
+
+
+
    // What do you want
    // Where are you?
 
@@ -29,8 +31,6 @@ app.get('/', apiController.getLocationResults, (req, res) => {
 
    // scrap walking idea
     // limit search results 
-
-
 
 
 

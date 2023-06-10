@@ -4,10 +4,10 @@ export default function Entry({name, address, distance}) {
 
   
   return (
-    <div>
-    {name}
-    {address}
-    {distance}
+    <div className="result">
+      <div>{name}</div>
+      <div>{address}</div>
+    {/* {distance} */}
     </div>
   )
 }

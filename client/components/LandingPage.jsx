@@ -5,7 +5,6 @@ export default function LandingPage({addressInput, setAddressInput}) {
           const input = document.getElementById('address').value;
             if(input !== ''){
                 setAddressInput(input)
-                console.log(input)
             }
           
         }

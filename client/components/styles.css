@@ -19,15 +19,36 @@ h1 {
     display:flex;
     flex-direction:row;
     margin: 1em;
+    border: solid 1px rgb(217, 105, 105);
 }
 
 .addressLabel {
     padding-right: .5rem;
 }
 
-.resultsPageContainer {
+.resultsPage {
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
+    border: solid 1px black;
+}
+.resultsContainer {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 7px;
+    border: solid 1px rgb(45, 165, 81);
+    background-color: beige;
+    margin: 2em;
+}
+
+.result {
+    margin: 0.5em;
+    display:flex;
+    flex-direction: column;
+    align-items: space-between;
+    background-color: aliceblue;
+    border:solid 0.5px pink;
 }

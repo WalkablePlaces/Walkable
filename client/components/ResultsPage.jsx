@@ -8,8 +8,9 @@ export default function ResultsPage({addressInput, setAddressInput, keywordChoic
 
   useEffect(() => {
     async function getResults(){
+      console.log(keywordChoice);
     try {
-      const response = await fetch('/getLocationResults', {
+      const response = await fetch('http://localhost:3000/getLocationResults', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',

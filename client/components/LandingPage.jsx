@@ -12,9 +12,9 @@ export default function LandingPage({addressInput, setAddressInput, keywordChoic
   
   return (
     <div className='landingPageContainer'>
-        <h1>Where are you?</h1>
+        <h1>Where's the closest food?</h1>
         <div className='addressInputContainer'>
-        <input className='addressInput' id='address'></input>
+        <input className='addressInput' id='address' placeholder='Enter Address...'></input>
         <select className='keywordInput' name='keyword' id='keyword' onChange={(e) => setKeywordChoice(e.target.value)} >
           <option>Select Food</option>
           <option value='Pizza'>&nbsp;Pizza</option>

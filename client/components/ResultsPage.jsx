@@ -2,14 +2,15 @@ import React from 'react'
 import { useState, useEffect } from 'react';
 import ResultsContainer from './ResultsContainer.jsx';
 
-export default function ResultsPage({addressInput, setAddressinput, keywordChoice}) {
-
+export default function ResultsPage({addressInput, setAddressInput, keywordChoice}) {
+  
   const [resultList, setResultList] = useState([]);
 
   useEffect(() => {
     async function getResults(){
+      console.log(keywordChoice);
     try {
-      const response = await fetch('/getLocationResults', {
+      const response = await fetch('http://localhost:3000/getLocationResults', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -32,7 +33,7 @@ export default function ResultsPage({addressInput, setAddressinput, keywordChoic
   return (
     <div className='resultsPage'>
     <h1>Results within walking distance</h1>
-    <h2>Results</h2>
+    <button className='newSearchButton' onClick={(e) => {setAddressInput(undefined)}}>New Search</button>
     <div className='resultsContainer'>
     <ResultsContainer resultList={resultList}/>
     </div>

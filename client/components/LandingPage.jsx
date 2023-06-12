@@ -5,6 +5,7 @@ export default function LandingPage({addressInput, setAddressInput, keywordChoic
           const address = document.getElementById('address').value;
             if(address !== ''){
                 setAddressInput(address)
+                console.log(keywordChoice)
             }
           
         }
@@ -13,16 +14,15 @@ export default function LandingPage({addressInput, setAddressInput, keywordChoic
     <div className='landingPageContainer'>
         <h1>Where are you?</h1>
         <div className='addressInputContainer'>
-        <label className='addressLabel'>Address: </label>
         <input className='addressInput' id='address'></input>
         <select className='keywordInput' name='keyword' id='keyword' onChange={(e) => setKeywordChoice(e.target.value)} >
           <option>Select Food</option>
-          <option value='Pizza'>Pizza</option>
-          <option value='Thai'>Thai</option>
-          <option value='Mexican'>Mexican</option>
-          <option value='Burgers'>Burgers</option>
-          <option value='Italian'>Italian</option>
-          <option value='Vegan'>Vegan</option>
+          <option value='Pizza'>&nbsp;Pizza</option>
+          <option value='Thai'>&nbsp;Thai</option>
+          <option value='Mexican'>&nbsp;Mexican</option>
+          <option value='Burgers'>&nbsp;Burgers</option>
+          <option value='Italian'>&nbsp;Italian</option>
+          <option value='Vegan'>&nbsp;Vegan</option>
         </select>
         </div>
         <button className="submitLocation" onClick={buttonClick}>Submit Location</button>

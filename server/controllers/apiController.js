@@ -1,34 +1,36 @@
-// const { resourceLimits } = require('worker_threads');
+
+const googleMaps = require('@googlemaps/google-maps-services-js');
+const { Client } = require('@googlemaps/google-maps-services-js');
+const client = new Client({});
 
 const apiController = {};
-// API's
-
-// https://developers.google.com/maps/documentation/javascript/places
-// https://developers.google.com/maps/documentation/places/web-service
-
-//
+// api key is saved in a .env file, then brought into global scope
 const key = process.env.GOOGLE_API_KEY;
 
-// https://maps.googleapis.com/maps/api/place/nearbysearch/json
-//   ?keyword=cruise
-//   &location=-33.8670522 %2C 151.1957362
-//   &radius=1500
-//   &type=restaurant
-//   &key=YOUR_API_KEY
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // fetch and return locations based off a query
 apiController.getLocationResults = async (req, res, next) => {
   try {
-    // { }
-    const input = 'Burgers'
-    const response = await fetch(`https://maps.googleapis.com/maps/api/place/textsearch/json?query=${input}&type=restaurant&key=${key}`)
+    // define information to be used in fetch request
+    const { addressLocation } = res.locals;
+    const location = `${addressLocation[0]},${addressLocation[1]}`
+    const { keywordChoice } = req.body;
+    const radius = 1500;
+    const type = 'restaurant';
+    
+    // fetch google-maps api data (only wokrs on one line for some reason)
+    const url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${location}&radius=${radius}&type=${type}&keyword=${keywordChoice}&key=${key}`
+    const response = await fetch(url)
+
+    // format response
     const data = await response.json();
     const results = data.results;
     const arrayOfPlaces = [];
+
     results.forEach((el) => {
-      arrayOfPlaces.push({name: el.name, address: el.formatted_address, distance: undefined});
+      arrayOfPlaces.push({name: el.name, address: el.vicinity, distance: `${el.geometry.location.lat},${el.geometry.location.lng}`});
     });
     
      
@@ -44,35 +46,45 @@ apiController.getLocationResults = async (req, res, next) => {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 
-// apiController.walkingDistance = async (req, res, next) => {
-//   try {
-//   const { addressLocation } = res.locals;
-//   const { rawData } = res.locals; 
+// add walking distance information to array of places, replaces lng,lat with a distance
+apiController.walkingDistance = async (req, res, next) => {
+  try {
+  const { addressLocation } = res.locals;
+  const { rawData } = res.locals; 
+  const formattedAddressLocation = `${addressLocation[0]},${addressLocation[1]}`;
 
-//     for (let i = 0; i < rawData.length; i++) {
-//       const formatedPlaceLocation = `${rawData[i].coordinates[0]},${rawData[i].coordinates[1]}`
-//       const response = client.directions({
-//         params: {
-//           origin: addressLocation,
-//           destination: formatedPlaceLocation,
-//           mode: 'walking',
-//           key: key,
-//         }
-//       })
-//       console.log(response);
-//       rawData[i].distance = ``
-      
-      
-//     }
-//   }
-//   catch(e) {
 
-//   }; 
-// };
+    for (let i = 0; i < rawData.length; i++) {
+
+      const formatedPlaceLocation = rawData[i].distance
+
+      const response = await client.directions({
+        params: {
+          origin: formattedAddressLocation,
+          destination: formatedPlaceLocation,
+          mode: 'walking',
+          key: key,
+        }
+      })
+      // console.log(response.data.routes[0].legs[0].distance.text);
+      const distance = response.data.routes[0].legs[0].distance.text;
+      const walkTime = response.data.routes[0].legs[0].duration.text;
+      const walkTimeResponse = `Distance is ${distance}, Walk-time is ${walkTime}`
+      console.log(walkTimeResponse);
+      rawData[i].distance = walkTimeResponse;
+    }
+    next();
+  }
+  catch(e) {
+    console.log(e);
+    next({log: 'Something wrong with walk distance middleware'});
+  }; 
+};
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
+// possible stretch feature: get locations near me, as opposed to inputting an address
 apiController.getCurrentLocation = async (req, res, next) => {
     try {
         const response = await client.geolocate( {
@@ -93,16 +105,18 @@ apiController.getCurrentLocation = async (req, res, next) => {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
+// convert an address to lattitude longitude (necessary for determining distances from/to locations)
 apiController.addressToLocation = async (req, res, next) => {
     try {
+
+      const { query } = req.body;
         const response = await client.geocode({
             params: {
-                address: '136 Via Murcia, 92672',
+                address: query,
                 key: key,
             }
         })
         const { lat, lng } = response.data.results[0].geometry.location;
-        console.log(lat, lng);
         res.locals.addressLocation = [lat, lng];
         next();
     }

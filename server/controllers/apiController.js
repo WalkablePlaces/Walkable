@@ -32,7 +32,7 @@ apiController.getLocationResults = async (req, res, next) => {
     // fill array with relevant info, distance lat,lng will be converted in following middleware
     const arrayOfPlaces = [];
     results.forEach((el) => {
-      arrayOfPlaces.push({name: el.name, address: el.vicinity, distance: `${el.geometry.location.lat},${el.geometry.location.lng}`, walkTime: undefined, walkTimeNum: undefined});
+      arrayOfPlaces.push({name: el.name, address: el.vicinity, distance: `${el.geometry.location.lat},${el.geometry.location.lng}`, walkTime: undefined, walkTimeNum: undefined, favorited: false});
     });
     
      

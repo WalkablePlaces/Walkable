@@ -99,4 +99,15 @@ button {
 
 .resultAddress {
     font-family: 'Noto Sans', sans-serif;
+    margin-top: .5rem;
+}
+
+.resultDistance {
+    font-family: 'Noto Sans', sans-serif;
+    margin-top: .5rem;
+}
+
+.resultWalkTime {
+    font-family: 'Noto Sans', sans-serif;
+    margin-top: .5rem;
 }

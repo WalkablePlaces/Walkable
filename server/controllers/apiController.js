@@ -17,20 +17,22 @@ apiController.getLocationResults = async (req, res, next) => {
     const { addressLocation } = res.locals;
     const location = `${addressLocation[0]},${addressLocation[1]}`
     const { keywordChoice } = req.body;
-    const radius = 1500;
+    const radius = 1100;
     const type = 'restaurant';
     
     // fetch google-maps api data (only wokrs on one line for some reason)
     const url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${location}&radius=${radius}&type=${type}&keyword=${keywordChoice}&key=${key}`
+    // const url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${location}&rankby=distance&type=${type}&keyword=${keywordChoice}&key=${key}`
     const response = await fetch(url)
 
     // format response
     const data = await response.json();
     const results = data.results;
+    
+    // fill array with relevant info, distance lat,lng will be converted in following middleware
     const arrayOfPlaces = [];
-
     results.forEach((el) => {
-      arrayOfPlaces.push({name: el.name, address: el.vicinity, distance: `${el.geometry.location.lat},${el.geometry.location.lng}`});
+      arrayOfPlaces.push({name: el.name, address: el.vicinity, distance: `${el.geometry.location.lat},${el.geometry.location.lng}`, walkTime: undefined, walkTimeNum: undefined});
     });
     
      
@@ -49,10 +51,10 @@ apiController.getLocationResults = async (req, res, next) => {
 // add walking distance information to array of places, replaces lng,lat with a distance
 apiController.walkingDistance = async (req, res, next) => {
   try {
+    // get info for calculating distance
   const { addressLocation } = res.locals;
   const { rawData } = res.locals; 
   const formattedAddressLocation = `${addressLocation[0]},${addressLocation[1]}`;
-
 
     for (let i = 0; i < rawData.length; i++) {
 
@@ -66,12 +68,17 @@ apiController.walkingDistance = async (req, res, next) => {
           key: key,
         }
       })
-      // console.log(response.data.routes[0].legs[0].distance.text);
       const distance = response.data.routes[0].legs[0].distance.text;
       const walkTime = response.data.routes[0].legs[0].duration.text;
-      const walkTimeResponse = `Distance is ${distance}, Walk-time is ${walkTime}`
-      console.log(walkTimeResponse);
-      rawData[i].distance = walkTimeResponse;
+      const distanceResponse = `Distance: ${distance}`
+      const walkTimeResponse = `Walk-time: ${walkTime}`
+      rawData[i].distance = distanceResponse;
+      rawData[i].walkTime = walkTimeResponse;
+      
+      const index = walkTime.indexOf(' ');
+      const walkTimeNum = walkTime.slice(0, index);
+      rawData[i].walkTimeNum = Number(walkTimeNum);
+      // console.log(rawData[i].walkTimeNum);
     }
     next();
   }
@@ -127,9 +134,6 @@ apiController.addressToLocation = async (req, res, next) => {
     };
 };
 
-
-// request - Obtain Location Coordinates, Obatain List of Resturants Near by - Iterate over array of objects, and retreive walking time data for each
-// resturant - then format it all [Name, Address, Walking Distance]
 
 
 

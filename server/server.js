@@ -11,7 +11,7 @@ const googleMaps = require('@googlemaps/google-maps-services-js');
 const { Client } = require('@googlemaps/google-maps-services-js');
 const client = new Client({});
 
-
+app.use(cors());
 const apiController = require('./controllers/apiController');
 
 app.use(bodyParser.json())
@@ -21,34 +21,9 @@ const key = process.env.GOOGLE_API_KEY;
 
 
 
-
-app.get('/testDistance', async (req, res) => {
-  try {
-    const origin1 = '40.758896,-73.985130';
-    const destination1 = '40.782864,-73.965355';
-
-   const response = await client.directions ({
-      params: {
-        origin: origin1,
-        destination: destination1,
-        mode: 'walking',
-        key: key,
-      }
-    });
-    const distance = response.data.routes[0].legs[0].distance.text;
-    const walkTime = response.data.routes[0].legs[0].duration.text;
-    const walkTimeResponse = `Distance is ${distance}, Walk-time is ${walkTime}`
-    console.log(walkTimeResponse);
-    console.log(distance, walkTime);
-  }
-  catch(e) {
-    console.log(e);
-  }
-
-});
-
 // returns a list of nearby resturant names, addresses, and distances
 app.post('/getLocationResults', apiController.addressToLocation, apiController.getLocationResults, apiController.walkingDistance, (req, res) => {
+  console.log(res.locals.rawData);
     res.status(200).json({places: res.locals.rawData});
    })
 

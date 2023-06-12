@@ -1,10 +1,15 @@
 
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@500&display=swap');
+
+
+
 html {
     background-color: rgb(91, 77, 113);
 }
 
 h1 {
-    color: rgb(255, 255, 255);
+    font-family: 'Noto Sans', sans-serif;
+    color: rgb(244, 238, 238);
 }
 
 .landingPageContainer {
@@ -21,8 +26,32 @@ h1 {
     margin: 1em;
 }
 
+input {
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  width: 20rem;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: white;
+  /* background-position: 10px 10px;  */
+  background-repeat: no-repeat;
+  /* padding: 12px 20px 12px 40px; */
+  transition: width 0.4s ease-in-out;
+}
+
 .addressLabel {
+    
+    font-family: 'Noto Sans', sans-serif;
     padding-right: .5rem;
+}
+
+option {
+    font-family: 'Noto Sans', sans-serif;
+}
+
+button {
+    width: 10rem;
+    font-family: 'Noto Sans', sans-serif;
 }
 
 .resultsPage {
@@ -30,7 +59,7 @@ h1 {
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    border: solid 1px black;
+    /* border: solid 1px black; */
 }
 .resultsContainer {
     display: flex;
@@ -38,21 +67,36 @@ h1 {
     flex-direction: column;
     align-items: center;
     border-radius: 7px;
-    border: solid 1px rgb(45, 165, 81);
-    background-color: beige;
-    margin: 2em;
+    /* border: solid 1px rgb(45, 165, 81); */
+    /* background-color: rgb(110, 103, 95); */
+    /* margin: -1.5rem; */
+    filter: drop-shadow(14px 5px 4px rgba(228, 235, 242, 0.477));
+    padding: 1rem 4rem 1rem 4rem;
 }
 
 .result {
-    margin: 0.5em;
+    margin: 2.5em;
     display:flex;
+    border-radius: 36px;
     flex-direction: column;
-    align-items: space-between;
+    align-items: center;
     background-color: aliceblue;
-    border:solid 0.5px pink;
+    height: 14rem;
+    width: 18rem;
+    padding: 1rem 4rem 1rem 4rem;
+    text-align: center;
 }
 
 .keywordInput {
     margin-left: .5rem;
     border-radius: 4px;
+}
+
+.resultName {
+    font-family: 'Noto Sans', sans-serif;
+    margin-top: 1em;;
+}
+
+.resultAddress {
+    font-family: 'Noto Sans', sans-serif;
 }

@@ -10,7 +10,7 @@ const key = process.env.GOOGLE_API_KEY
 apiController.getLocationResults = async (req, res, next) => {
   try {
     // { }
-    const input = 'Burgers'
+    const input = 'indianfoodmissionviejo'
     const response = await fetch(`https://maps.googleapis.com/maps/api/place/textsearch/json?query=${input}&type=restaurant&key=${key}`)
     const data = await response.json();
     const results = data.results;

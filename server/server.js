@@ -18,7 +18,9 @@ app.use(bodyParser.json())
 
 const key = process.env.GOOGLE_API_KEY;
 
-
+app.get('/', (req, res) => {
+  res.status(200).json({hello: 'goodbye'});
+});
 
 
 // returns a list of nearby resturant names, addresses, and distances

@@ -10,7 +10,7 @@ export default function ResultsPage({addressInput, setAddressInput, keywordChoic
     async function getResults(){
       console.log(keywordChoice);
     try {
-      const response = await fetch('http://localhost:3000/getLocationResults', {
+      const response = await fetch('/getLocationResults', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',

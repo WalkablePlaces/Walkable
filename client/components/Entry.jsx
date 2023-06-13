@@ -12,7 +12,7 @@ let FavIcon;
   
   const favClick = () => {
     if(favorited !== true){
-    fetch('http://localhost:3000/addFavorite', {
+    fetch('/addFavorite', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -34,7 +34,7 @@ let FavIcon;
 
       console.log('fetch line 21')
     } else {
-      fetch('http://localhost:3000/deleteFavorite', {
+      fetch('/deleteFavorite', {
         method: 'DELETE',
         headers: {
           'Accept': 'application/json',

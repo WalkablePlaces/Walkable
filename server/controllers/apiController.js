@@ -22,7 +22,7 @@ apiController.getLocationResults = async (req, res, next) => {
     
     // fetch google-maps api data (only wokrs on one line for some reason)
     const url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${location}&radius=${radius}&type=${type}&keyword=${keywordChoice}&key=${key}`
-    // const url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${location}&rankby=distance&type=${type}&keyword=${keywordChoice}&key=${key}`
+    
     const response = await fetch(url)
 
     // format response

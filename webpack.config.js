@@ -2,8 +2,10 @@
 const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const NODE_ENV = process.env.NODE_ENV;
 
 module.exports = {
+  mode: NODE_ENV,
   entry: [
     // entry point of our app
     './client/index.js',

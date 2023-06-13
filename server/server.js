@@ -13,7 +13,7 @@ const client = new Client({});
 
 app.use(cors());
 const apiController = require('./controllers/apiController');
-
+const favoriteController = require('./controllers/favoriteController');
 app.use(bodyParser.json())
 
 const key = process.env.GOOGLE_API_KEY;
@@ -22,10 +22,26 @@ const key = process.env.GOOGLE_API_KEY;
 
 
 // returns a list of nearby resturant names, addresses, and distances
-app.post('/getLocationResults', apiController.addressToLocation, apiController.getLocationResults, apiController.walkingDistance, (req, res) => {
+app.post('/getLocationResults', apiController.addressToLocation, apiController.getLocationResults, apiController.walkingDistance, favoriteController.checkDatabase, (req, res) => {
   console.log(res.locals.rawData);
     res.status(200).json({places: res.locals.rawData});
    })
+
+
+   app.post('/addFavorite', favoriteController.addFavorite, (req, res) => {
+    res.sendStatus(200);
+   });
+
+   app.get('/getAllFavorites', favoriteController.getAllFavorites, (req, res) => {
+      const { data } = res.locals;
+      res.status(200).json({data: data});
+   });
+
+   app.delete('/deleteFavorite', favoriteController.deleteFavorite, (req, res) => {
+    res.sendStatus(200);
+   });
+
+
 
 
 
@@ -42,4 +58,4 @@ app.use((err, req, res, next) => {
 });
 
 
-app.listen(PORT, () => console.log('listing on 3000'));
+app.listen(PORT, () => console.log('listening on 3000'));

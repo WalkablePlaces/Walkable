@@ -42,4 +42,4 @@ app.use((err, req, res, next) => {
 });
 
 
-app.listen(PORT, () => console.log('listing on 3000'));
+app.listen(PORT, () => console.log('listening on 3000'));

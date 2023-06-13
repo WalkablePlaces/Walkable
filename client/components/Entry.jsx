@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { FontAwesomeIcon as FAIcon } from '@fortawesome/react-fontawesome';
 import { faStar as solidStar } from '@fortawesome/free-solid-svg-icons';
 import { faStar as regStar } from '@fortawesome/free-regular-svg-icons';
 
 export default function Entry({name, address, distance, walkTime, favorited, walkTimeNum}) {
 
-  let FavIcon;
+let FavIcon;
   
   const favClick = () => {
     if(favorited !== true){
@@ -33,6 +33,15 @@ export default function Entry({name, address, distance, walkTime, favorited, wal
 
   if (favorited) FavIcon = (<span className="favIcon"><FAIcon onClick={favClick} icon={solidStar} style={{ color: '#476fc5' }} /></span>);
   else FavIcon = (<span className="favIcon"><FAIcon onClick={favClick} icon={regStar} /></span>);
+
+  // useEffect(() => {
+  //   function innerFunc() {
+  //     console.log('line 39')
+  //     if (favorited) FavIcon = (<span className="favIcon"><FAIcon onClick={favClick} icon={solidStar} style={{ color: '#476fc5' }} /></span>);
+  //     else FavIcon = (<span className="favIcon"><FAIcon onClick={favClick} icon={regStar} /></span>);
+  //   }
+  //   innerFunc()
+  // }, [])
   
   return (
     <div className="result">

@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import ResultsContainer from './ResultsContainer.jsx';
 
 export default function ResultsPage({addressInput, setAddressInput, keywordChoice}) {
-  
+  // const [pageState, setPageState] = useState(true)
   const [resultList, setResultList] = useState([]);
 
   useEffect(() => {
@@ -33,6 +33,10 @@ export default function ResultsPage({addressInput, setAddressInput, keywordChoic
   return (
     <div className='resultsPage'>
     <h1>Results within walking distance</h1>
+    {/* <button className='favoritesPageButton' onClick={(e) => {
+      if(pageState === true){
+      setPageState(false)}
+      }}>Show Favorites</button> */}
     <button className='newSearchButton' onClick={(e) => {setAddressInput(undefined)}}>New Search</button>
     <div className='resultsContainer'>
     <ResultsContainer resultList={resultList}/>

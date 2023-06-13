@@ -3,7 +3,10 @@ import { FontAwesomeIcon as FAIcon } from '@fortawesome/react-fontawesome';
 import { faStar as solidStar } from '@fortawesome/free-solid-svg-icons';
 import { faStar as regStar } from '@fortawesome/free-regular-svg-icons';
 
-export default function Entry({name, address, distance, walkTime, favorited, walkTimeNum}) {
+export default function Entry({name, address, distance, walkTime, favorited, walkTimeNum, favoritedStatus, setFavoritedStatus}) {
+
+// make a state for isFavorited
+const [isFavorited, setIsFavorited] = useState(favorited)
 
 let FavIcon;
   
@@ -17,17 +20,36 @@ let FavIcon;
         },
         body: JSON.stringify({name, address, distance, walkTime, walkTimeNum}),
       })
-      favorited = true; 
+      // iterate through favorited Status, find clicked entry, update, and call setFavoritedStatus with updated array 
+      const copy = favoritedStatus.slice();
+      copy.forEach(el => {
+        if (el.name === name) {
+          el.favorited = true;
+        }
+      })
+      setFavoritedStatus(copy);
+
+      // test
+      setIsFavorited(true)
+
+      console.log('fetch line 21')
     } else {
-      fetch('http://localhost:3000/addFavorite', {
+      fetch('http://localhost:3000/deleteFavorite', {
         method: 'DELETE',
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({address})
+        body: JSON.stringify({name})
       })
-      favorited = false;
+
+      const copy = favoritedStatus.slice();
+      copy.forEach(el => {
+        if (el.name === name) {
+          el.favorited = false;
+        }
+      })
+      setFavoritedStatus(copy);
     }
   } 
 

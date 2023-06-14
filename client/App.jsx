@@ -1,20 +1,17 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react';
 // import LandingPage from './LandingPage'
 // import ResultsPage from './ResultsPage'
-import './styles.css'
-import { Route, Routes } from 'react-router'
-import Navbar from './components/NavBar'
-import Login from './pages/Login'
-import Signup from './pages/Signup'
-import Search from './pages/Search'
-import Dashboard from './pages/Dashboard'
+import { Route, Routes } from 'react-router';
+import Navbar from './components/NavBar';
+import Login from './pages/login';
+import Signup from './pages/signup';
+import Search from './pages/Search';
+import Dashboard from './pages/Dashboard';
+import './styles.css';
 
 export default function App() {
 // const [addressInput, setAddressInput] = useState(undefined);
 // const [keywordChoice, setKeywordChoice] = useState('') 
-
-const [isSignedIn, setIsSignedIn] = useState(false); //refactor to store in redux store
- 
 
 const showNav = [];
 if (location.pathname !== '/login' && location.pathname !== '/') {
@@ -27,11 +24,11 @@ return (
     {/* {showNav} */}
     <Navbar/>
     <Routes> 
-      <Route path='/login' element={<Login isSignedIn={isSignedIn} setIsSignedIn={setIsSignedIn}/>}/>
+      <Route path='/login' element={<Login/>}/>
       <Route path='/search' element={<Search/>}/>
       <Route path='/dashboard' element={<Dashboard/>}/>
       {/* <Route path='/detail' element={<Detail/>}/> */}
-      <Route path='/' element={<Signup isSignedIn={isSignedIn} setIsSignedIn={setIsSignedIn}/>}/>
+      <Route path='/' element={<Signup/>}/>
     </Routes>
     </>
   )

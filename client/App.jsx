@@ -3,17 +3,17 @@ import React, { useState, useEffect } from 'react'
 // import ResultsPage from './ResultsPage'
 import './styles.css'
 import { Route, Routes } from 'react-router'
-import Navbar from './components/navBar'
-import Login from './pages/login'
-import Signup from './pages/signup'
-import Search from './pages/search'
-import Dashboard from './pages/dashboard'
+import Navbar from './components/NavBar'
+import Login from './pages/Login'
+import Signup from './pages/Signup'
+import Search from './pages/Search'
+import Dashboard from './pages/Dashboard'
 
 export default function App() {
 // const [addressInput, setAddressInput] = useState(undefined);
 // const [keywordChoice, setKeywordChoice] = useState('') 
 
-const [isSignedIn, setIsSignedIn] = useState(false);
+const [isSignedIn, setIsSignedIn] = useState(false); //refactor to store in redux store
  
 
 const showNav = [];

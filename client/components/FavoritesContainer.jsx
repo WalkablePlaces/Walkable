@@ -5,7 +5,6 @@ export default function FavoritesContainer() {
     <div>
       
 
-
     </div>
   )
 }

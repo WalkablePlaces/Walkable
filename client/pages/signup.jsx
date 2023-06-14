@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import { NavLink, Navigate } from 'react-router-dom';
-import Dashboard from './dashboard'
+import Dashboard from './Dashboard'
 
 export default function signup({ isSignedIn, setIsSignedIn }) {
   const [firstName, setFirstName] = useState('');

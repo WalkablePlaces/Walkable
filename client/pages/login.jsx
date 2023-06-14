@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import { NavLink } from 'react-router-dom';
-import Dashboard from './dashboard'
+import Dashboard from './Dashboard'
 
 export default function login({ isSignedIn, setIsSignedIn }) {
   const [email, setEmail] = useState('');

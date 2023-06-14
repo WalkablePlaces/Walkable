@@ -1,7 +1,7 @@
 import React from 'react'
 // import FavoritesContainer from '../components/favoritesContainer'
 import CategoryContainer from '../components/CategoryContainer'
-export default function dashboard() {
+export default function Dashboard() {
 
 
   // Resturants

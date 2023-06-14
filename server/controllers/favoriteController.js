@@ -64,4 +64,8 @@ favoriteController.checkDatabase = async (req, res, next) => {
         next({log: `Something wrong with checkDataBase middleware, error: ${e}`})
     }
 };
+// INSERT INTO Favorites (name,address,photo,url,phone_number,opening_hours,ratings,distance,types,walktime,walktime_num,created_at,deleted_at,user_id)
+//VALUES ('popeyes','123 front st','google.com','yahoo.com','607-687-0755','monday-friday','5','10','thai','walkingtime: 20min',20,'2023-06-11','2023-06-10',1)
+
+
 module.exports = favoriteController;

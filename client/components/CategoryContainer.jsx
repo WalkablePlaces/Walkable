@@ -1,30 +1,27 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSearchActionCreator } from '../actions/actions';
 
-export default function CategoryContainer() {
+export default function CategoryContainer({ type, radius, location }) {
     // { type, location, radius }
     // test data for searchState
-    const type = 'Test', location = 'TestTest', radius = 200;
+    // const type = 'Test', location = 'TestTest', radius = 200;
     
     // dispatch used to set state
     const dispatch = useDispatch();
 
-    // If a catageory has been clicked
-    const searchState = useSelector((state) => state.search);
+    const navigate = useNavigate();
 
     // handle category click
-    const onCategoryClick =  () => {
-        console.log(searchState);
+    const onCategoryClick =  async () => {
+      try {
         dispatch(setSearchActionCreator({type, location, radius}))
+        navigate('/search');
+       } catch (e) {
+        console.log(e.message);
+      }
     };
-
-    console.log(searchState);
-
-    // getLocationResults
-
-
 
   return (
     <div style={{width: "50px", height: "50px"}}>

@@ -6,15 +6,14 @@ const app = express();
 const PORT = 3000;
 const cors = require('cors');
 const bodyParser = require('body-parser');
-
-const googleMaps = require('@googlemaps/google-maps-services-js');
-const { Client } = require('@googlemaps/google-maps-services-js');
-const client = new Client({});
+const cookieParser = require('cookie-parser');
+//routers
+const apiRouter = require('./routes/apiRouter');
+const loginRouter = require('./routes/loginRouter')
 
 app.use(cors());
-const apiController = require('./controllers/apiController');
-const favoriteController = require('./controllers/favoriteController');
 app.use(bodyParser.json())
+app.use(cookieParser())
 
 const key = process.env.GOOGLE_API_KEY;
 
@@ -22,26 +21,11 @@ app.get('/', (req, res) => {
   res.status(200).json({hello: 'goodbye'});
 });
 
+app.use('/api', loginRouter, apiRouter);
+
+
 
 // returns a list of nearby resturant names, addresses, and distances
-app.post('/getLocationResults', apiController.addressToLocation, apiController.getLocationResults, apiController.walkingDistance, favoriteController.checkDatabase, (req, res) => {
-  console.log(res.locals.rawData);
-    res.status(200).json({places: res.locals.rawData});
-   })
-
-
-   app.post('/addFavorite', favoriteController.addFavorite, (req, res) => {
-    res.sendStatus(200);
-   });
-
-   app.get('/getAllFavorites', favoriteController.getAllFavorites, (req, res) => {
-      const { data } = res.locals;
-      res.status(200).json({data: data});
-   });
-
-   app.delete('/deleteFavorite', favoriteController.deleteFavorite, (req, res) => {
-    res.sendStatus(200);
-   });
 
 
 

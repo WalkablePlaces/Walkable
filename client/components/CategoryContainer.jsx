@@ -5,21 +5,24 @@ import { setSearchActionCreator } from '../actions/actions';
 
 export default function CategoryContainer() {
     // { type, location, radius }
+    // test data for searchState
     const type = 'Test', location = 'TestTest', radius = 200;
+    
+    // dispatch used to set state
     const dispatch = useDispatch();
 
     // If a catageory has been clicked
-    // render the results page
-    const search = useSelector((state) => state.search);
+    const searchState = useSelector((state) => state.search);
 
-    const onCategoryClick = async () => {
-        console.log(search);
-        await dispatch(setSearchActionCreator({type, location, radius}))
+    // handle category click
+    const onCategoryClick =  () => {
+        console.log(searchState);
+        dispatch(setSearchActionCreator({type, location, radius}))
     };
 
-console.log(search);
+    console.log(searchState);
 
-// /getLocationResults
+    // getLocationResults
 
 
 

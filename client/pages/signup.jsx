@@ -1,8 +1,9 @@
-import React, {useState} from 'react'
-import { NavLink, Navigate } from 'react-router-dom';
-import Dashboard from './Dashboard'
+import React, {useState} from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setUserActionCreator } from '../actions/actions';
 
-export default function signup({ isSignedIn, setIsSignedIn }) {
+export default function Signup() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -10,8 +11,7 @@ export default function signup({ isSignedIn, setIsSignedIn }) {
   const [password, setPassword] = useState('');
   const [location, setLocation] = useState('');
 
-
-
+  // handle signup inputs
   const handleFirstName = (e) => {
     setFirstName(e.target.value);
   }
@@ -40,8 +40,28 @@ export default function signup({ isSignedIn, setIsSignedIn }) {
     setLocation(e.target.value);
   };
 
-  // handle fetch post request for signup
-  const handleSignUp = async () => {
+  // declare dispatch to invoke action
+  const dispatch = useDispatch();
+
+  // use navigate to change route on successful login
+  let navigate = useNavigate();
+
+  // fake user data for testing reducer state
+  const fakeUser = {
+    id: 5,
+    firstName: 'Bryan',
+    lastName: 'Trang',
+    email: 'bryan@bryan.com',
+    imgUrl: '',
+    distance: 6,
+    location: 'Los Angeles, CA',
+    loginStatus: true,
+  }
+
+   // post request for signup -> should update userState after 200 repsonse
+  const handleSignUp = async (e) => {
+    // use prevent default here because of form default reload
+    e.preventDefault();
     try {
       const settings = {
         method: 'POST',
@@ -59,7 +79,10 @@ export default function signup({ isSignedIn, setIsSignedIn }) {
           }
         }
         const response = await fetch('/api/signup', settings);
-        if (response.status === 200) setIsSignedIn(true);
+        if (response.status === 200) {
+          dispatch(setUserActionCreator(fakeUser));
+          navigate("/dashboard");
+        };
       }
     catch (e) {
       console.log(e.message);
@@ -67,7 +90,7 @@ export default function signup({ isSignedIn, setIsSignedIn }) {
   };
 
 
-  return ( isSignedIn ? (<Dashboard/>) : (
+  return (
     <div>
       Signup for Walkable
       <form>
@@ -90,6 +113,5 @@ export default function signup({ isSignedIn, setIsSignedIn }) {
       </form>
       <NavLink to="/login" ><button>Login</button></NavLink>
     </div>
-)
   )
 }

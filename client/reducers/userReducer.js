@@ -7,7 +7,7 @@ const initialState = {
   lastName: '',
   email: '',
   imgUrl: '',
-  distance: 1,
+  radius: 1,
   location: '',
   loginStatus: false,
 };
@@ -20,7 +20,7 @@ const userReducer = createReducer(initialState, (builder) => {
       lastName,
       email,
       imgUrl,
-      distance,
+      radius,
       location,
       loginStatus,
     } = action.payload;
@@ -30,7 +30,7 @@ const userReducer = createReducer(initialState, (builder) => {
       lastName,
       email,
       imgUrl,
-      distance,
+      radius,
       location,
       loginStatus,
     });

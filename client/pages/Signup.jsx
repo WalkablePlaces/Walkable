@@ -53,7 +53,7 @@ export default function Signup() {
     lastName: 'Trang',
     email: 'bryan@bryan.com',
     imgUrl: '',
-    distance: 6,
+    radius: 6,
     location: 'Los Angeles, CA',
     loginStatus: true,
   }
@@ -72,7 +72,7 @@ export default function Signup() {
               firstName,
               lastName,
               email,
-              distance: distance*1600, // converting miles to meters
+              radius: radius*1600, // converting miles to meters
               password,
               location,
             })

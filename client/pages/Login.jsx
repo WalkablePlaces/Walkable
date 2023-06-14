@@ -29,7 +29,7 @@ export default function Login() {
     lastName: 'Trang',
     email: 'bryan@bryan.com',
     imgUrl: '',
-    distance: 6,
+    radius: 6,
     location: 'Los Angeles, CA',
     loginStatus: true,
   }
@@ -42,7 +42,6 @@ export default function Login() {
     
     // test code to make sure state is working and navigate works
     // dispatch(setUserActionCreator(fakeUser));
-    // console.log('hello')
     // navigate('/dashboard');
 
     try {

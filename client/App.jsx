@@ -3,8 +3,8 @@ import React from 'react';
 // import ResultsPage from './ResultsPage'
 import { Route, Routes } from 'react-router';
 import Navbar from './components/NavBar';
-import Login from './pages/login';
-import Signup from './pages/signup';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
 import Search from './pages/Search';
 import Dashboard from './pages/Dashboard';
 import './styles.css';

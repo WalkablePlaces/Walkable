@@ -6,17 +6,47 @@ const NODE_ENV = process.env.NODE_ENV;
 
 module.exports = {
   mode: NODE_ENV,
-  entry: [
-    // entry point of our app
-    './client/index.js',
-  ],
+
+  entry: './client/index.js',
+
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
   },
+
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './index.html',
+    }),
+  ],
+
+  module: {
+    rules: [
+      {
+        test: /.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env', '@babel/preset-react'],
+          },
+        },
+      },
+      {
+        test: /.(css|scss)$/,
+        exclude: /node_modules/,
+        use: ['style-loader', 'css-loader', 'sass-loader'],
+      },
+    ],
+  },
+
+  resolve: {
+    // Enable importing JS / JSX files without specifying their extension
+    extensions: ['.js', '.jsx'],
+  },
+
   devServer: {
     host: 'localhost',
-    port: 8080,
     // match the output path
     static: {
       directory: path.resolve(__dirname, 'dist'),
@@ -35,38 +65,7 @@ module.exports = {
      * to localhost:3000/api/* (where our Express server is running)
      */
     proxy: {
-      '/**': {
-        target: 'http://localhost:3000/',
-        secure: false,
+      '/': 'http://localhost:3000/',
     },
-  }
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: './index.html'
-    })
-  ],
-  module: {
-    rules: [
-      {
-        test: /.(js|jsx)$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env', '@babel/preset-react']
-          }
-        }
-      },
-      {
-        test: /.(css|scss)$/,
-        exclude: /node_modules/,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
-      },
-    ]
-  },
-  resolve: {
-    // Enable importing JS / JSX files without specifying their extension
-    extensions: ['.js', '.jsx'],
-  },
-}
+};

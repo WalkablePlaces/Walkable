@@ -2,6 +2,8 @@ import React, {useState} from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setUserActionCreator } from '../actions/actions';
+import Slider from '@mui/material/Slider';
+import Box from '@mui/material/Box';
 
 export default function Signup() {
   const [firstName, setFirstName] = useState('');
@@ -28,12 +30,9 @@ export default function Signup() {
     setPassword(e.target.value);
   };
   
-  const handleWalking = (e) => {
-    if (e.target.value > 0) {
-    setDistance(e.target.value);
-  } else {
-    setDistance(1);
-  }
+
+  const handleSetDistance = (value) => {
+    setDistance(value);
   };
 
   const handleLocation = (e) => {
@@ -100,10 +99,18 @@ export default function Signup() {
         <br></br>
         <input type='text' placeholder='Email Address' onChange={handleEmail}/>
         <br></br>
-        <div>
-        <input type='number' placeholder='Preferred Walking Distance (Mi)' onChange={handleWalking} value={distance}/>
-        Miles
-        </div>
+        <Box sx={{ width: 300 }}>
+        <Slider
+        aria-label="Miles"
+        defaultValue={1}
+        getAriaValueText={handleSetDistance}
+        valueLabelDisplay="auto"
+        step={1}
+        marks
+        min={1}
+        max={5}
+      />
+      </Box>
         <br></br>
         <input type='text' placeholder='Your Location' onChange={handleLocation}/>
         <br></br>
@@ -111,7 +118,7 @@ export default function Signup() {
         <br></br>
         <button onClick={handleSignUp}> Sign up </button>
       </form>
-      <NavLink to="/login" ><button>Login</button></NavLink>
+      <NavLink to="/login" ><button>Go to Login</button></NavLink>
     </div>
   )
 }

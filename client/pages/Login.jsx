@@ -78,7 +78,7 @@ export default function Login() {
         <br></br>
         <button onClick={handleLogin}>Login</button>
       </form>
-      <NavLink to="/" ><button>Signup</button></NavLink>
+      <NavLink to="/" ><button>Go To Signup</button></NavLink>
     </div>
     )
 }

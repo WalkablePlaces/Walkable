@@ -12,12 +12,14 @@ const key = process.env.GOOGLE_API_KEY;
 apiController.addressToLocation = async (req, res, next) => {
   try {
     const { query } = req.body;
+
     const response = await client.geocode({
       params: {
         address: query,
         key: key,
       }
     })
+    // console.log(`address to location response`, response.data.results[0].geometry.location)
     const { lat, lng } = response.data.results[0].geometry.location;
     res.locals.addressLocation = [lat, lng];
     next();
@@ -37,25 +39,28 @@ apiController.getLocationResults = async (req, res, next) => {
     // define information to be used in fetch request
     const { addressLocation } = res.locals;
     const location = `${addressLocation[0]},${addressLocation[1]}`
-    const { keywordChoice } = req.body;
-    const radius = 1100;
-    const type = 'restaurant';
+    const { keywordChoice,radius,type } = req.body;
+    // const radius = 1100;
+    // const type = 'restaurant';
 
     // fetch google-maps api data (only works on one line for some reason)
     const url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${location}&radius=${radius}&type=${type}&keyword=${keywordChoice}&key=${key}`
-
     const response = await fetch(url)
-
     // format response
     const data = await response.json();
-    const results = data.results;
+    // console.log(data)
 
+    const results = data.results;
+    console.log(results)
     // fill array with relevant info, distance lat,lng will be converted in following middleware
     const arrayOfPlaces = [];
+    console.log(results[1].photos)
 
     //Need to put logic in here for whatever other information we want to put in ex: ratings, phone number, etc
     results.forEach((el) => {
-      arrayOfPlaces.push({ name: el.name, address: el.vicinity, distance: `${el.geometry.location.lat},${el.geometry.location.lng}`, walkTime: undefined, walkTimeNum: undefined, favorited: false });
+      
+
+      arrayOfPlaces.push({ name: el.name, address: el.vicinity, distance: `${el.geometry.location.lat},${el.geometry.location.lng}`, walkTime: undefined, walkTimeNum: undefined, rating: el.rating, favorited: false });
     });
 
 
@@ -68,7 +73,7 @@ apiController.getLocationResults = async (req, res, next) => {
     return next({
       log: 'Express error handler caught getLocationResults middleware error',
       status: 400,
-      message: { err: 'An error occurred', error: e },
+      message: { err: 'An error occurred', error: err },
     });
   }
 };
@@ -145,10 +150,11 @@ apiController.getCurrentLocation = async (req, res, next) => {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
+//place details
+//https://maps.googleapis.com/maps/api/place/details/json?place_id=ChIJJ9T2xHr8MIgRwYFHq4ZxsIQ&key=AIzaSyBUCar8WeDpZDqcnt0BjnIMMMHIbJ5wn8E
 
-
-
-
+//place photos
+// https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${ref}&key=AIzaSyBUCar8WeDpZDqcnt0BjnIMMMHIbJ5wn8E
 
 
 module.exports = apiController;
